@@ -3,12 +3,11 @@ import YourBotArmy from "./YourBotArmy";
 import BotCollection from "./BotCollection";
 
 function BotsPage() {
-  //start here with your code for step one
   const [bots, setBots] = useState([]);
   const [army, setArmy] = useState([]);
 
   useEffect(() => {
-    fetch()
+    fetch("http:localhost:3001/bots")
     .then(response =>response.json())
     .then(data => setBots(data))
     .catch(error => console.error("Error fetching bots:", error));
@@ -25,7 +24,7 @@ function BotsPage() {
   };
 
   const dischargeBot = (bot) => {
-    fetch(`${bot.id}`, {method: "DELETE"})
+    fetch(`http://localhost:3001/bots/${bot.id}`, {method: "DELETE"})
     .then(() => {
       setArmy(army.filter(b => b.id !== bot.id));
       setBots(bots.filter(b => b.id !== bot.id));
