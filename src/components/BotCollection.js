@@ -19,7 +19,7 @@ function BotCollection({ bots, setBots, addToArmy }) {
           >
             <div className="ui card">
               <div className="image">
-                <img src={bot.image} alt={bot.name} />
+                <img src={bot.avatar_url} alt={bot.name} />
               </div>
               <div className="content">
                 <div className="header">{bot.name}</div>
