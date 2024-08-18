@@ -9,21 +9,25 @@ const botTypeClasses = {
   Captain: "icon star",
 };
 
-function BotCard({ bot, addToArmy, dischargeBot}) {
+function BotCard({ bot, addToArmy, dischargeBot }) {
   return (
     <div className="ui column">
       <div
         className="ui card"
         key={bot.id}
-        onClick={() => console.log(addToArmy(bot))}
+        onClick={() => addToArmy(bot)}  
       >
         <div className="image">
-          <img alt="oh no!" src={bot.avatar_url} />
+          <img 
+            alt={`${bot.name}`} 
+            src={bot.avatar_url || "default-image.png"} 
+            onError={(e) => { e.target.src = "default-image.png"; }} 
+          />
         </div>
         <div className="content">
           <div className="header">
             {bot.name}
-            <i className={botTypeClasses[bot.bot_class]} />
+            <i className={botTypeClasses[bot.bot_class] || "icon robot"} /> 
           </div>
           <div className="meta text-wrap">
             <small>{bot.catchphrase}</small>
@@ -34,7 +38,6 @@ function BotCard({ bot, addToArmy, dischargeBot}) {
             <i className="icon heartbeat" />
             {bot.health}
           </span>
-
           <span>
             <i className="icon lightning" />
             {bot.damage}
@@ -47,9 +50,10 @@ function BotCard({ bot, addToArmy, dischargeBot}) {
             <div className="ui center aligned segment basic">
               <button
                 className="ui mini red button"
-                onClick={(e) =>
-                  {e.stopPropagation(); dischargeBot(bot);}
-                }
+                onClick={(e) => {
+                  e.stopPropagation(); 
+                  dischargeBot(bot);
+                }}
               >
                 x
               </button>

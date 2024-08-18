@@ -1,11 +1,17 @@
-import React, {useState, useEfect}from "react";
+import React, { useEffect } from "react";
 
-function BotCollection({bots, addToArmy}) {
-  // Your code here
+function BotCollection({ bots, setBots, addToArmy }) {
+  useEffect(() => {
+    fetch("http://localhost:3000/bots")
+      .then((response) => response.json())
+      .then((data) => setBots(data))
+      .catch((error) => console.error("Error fetching bots:", error));
+  }, [setBots]);
+
   return (
     <div className="ui four column grid">
       <div className="row">
-      {bots.map(bot => (
+        {bots.map((bot) => (
           <div
             key={bot.id}
             className="column"
